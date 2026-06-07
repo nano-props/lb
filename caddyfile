@@ -66,8 +66,7 @@ code.nano.properties {
 			}
 		}
 
-		header -Content-Security-Policy
-		header +Content-Security-Policy "script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;"
+		header defer Content-Security-Policy "script-src 'self' 'wasm-unsafe-eval' https://static.cloudflareinsights.com;"
 
 		reverse_proxy 127.0.0.1:32100 {
 			header_up Host {host}
