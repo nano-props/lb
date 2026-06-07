@@ -66,7 +66,6 @@ code.nano.properties {
 			}
 		}
 
-		header -Content-Security-Policy
 		reverse_proxy 127.0.0.1:32100 {
 			header_up Host {host}
 			header_up X-Real-IP {client_ip}
