@@ -47,7 +47,7 @@ tun.nano.properties {
 	}
 }
 
-code.nano.properties {
+g.nano.properties {
 	@bypass path /ws/*
 	handle @bypass {
 		reverse_proxy 127.0.0.1:32100 {
@@ -67,6 +67,32 @@ code.nano.properties {
 		}
 
 		reverse_proxy 127.0.0.1:32100 {
+			header_up Host {host}
+			header_up X-Real-IP {client_ip}
+		}
+	}
+}
+
+code.nano.properties {
+	@bypass path /pty/* /site.webmanifest
+	handle @bypass {
+		reverse_proxy 127.0.0.1:4096 {
+			header_up Host {host}
+			header_up X-Real-IP {client_ip}
+		}
+	}
+	handle {
+		forward_auth 127.0.0.1:3500 {
+			uri /api/protected
+			header_up Host auth.nano.properties
+			header_up X-Original-URI {scheme}://{host}{uri}
+			@error status 401 403
+			handle_response @error {
+				redir https://auth.nano.properties/login?redirect={scheme}%3A%2F%2F{host}{%uri}
+			}
+		}
+
+		reverse_proxy 127.0.0.1:4096 {
 			header_up Host {host}
 			header_up X-Real-IP {client_ip}
 		}
