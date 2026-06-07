@@ -48,13 +48,6 @@ tun.nano.properties {
 }
 
 code.nano.properties {
-	@bypass path /pty/* /site.webmanifest
-	handle @bypass {
-		reverse_proxy 127.0.0.1:4096 {
-			header_up Host {host}
-			header_up X-Real-IP {client_ip}
-		}
-	}
 	handle {
 		forward_auth 127.0.0.1:3500 {
 			uri /api/protected
@@ -67,7 +60,7 @@ code.nano.properties {
 		}
 
 		header -Content-Security-Policy
-		reverse_proxy 127.0.0.1:4096 {
+		reverse_proxy 127.0.0.1:32100 {
 			header_up Host {host}
 			header_up X-Real-IP {client_ip}
 		}
