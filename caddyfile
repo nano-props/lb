@@ -116,3 +116,12 @@ tokenai.dev, www.tokenai.dev {
 		header_up X-Real-IP {client_ip}
 	}
 }
+
+# -----------------------------------------------------------------------------
+
+www.persuingtec.com {
+	reverse_proxy 127.0.0.1:20260 {
+		header_up Host {host}
+		header_up X-Real-IP {client_ip}
+	}
+}
