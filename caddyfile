@@ -66,6 +66,25 @@ g.nano.properties {
 	}
 }
 
+
+macmini.nano.properties {
+        @bypass path /ws/*
+        handle @bypass {
+                reverse_proxy 127.0.0.1:32101 {
+                        header_up Host {host}
+                        header_up X-Real-IP {client_ip}
+                }
+        }
+        handle {
+                reverse_proxy 127.0.0.1:32101 {
+                        header_up Host {host}
+                        header_up X-Real-IP {client_ip}
+                }
+        }
+}
+
+
+
 code.nano.properties {
 	@bypass path /pty/* /site.webmanifest
 	handle @bypass {
