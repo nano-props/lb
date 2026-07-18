@@ -127,6 +127,13 @@ ai.pai.mn {
 	}
 }
 
+paidou.pai.mn {
+        reverse_proxy 127.0.0.1:8787 {
+                header_up Host {host}
+                header_up X-Real-IP {client_ip}
+        }
+}
+
 # -----------------------------------------------------------------------------
 
 tokenai.dev, www.tokenai.dev {
