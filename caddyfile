@@ -151,3 +151,20 @@ www.persuingtec.com {
 		header_up X-Real-IP {client_ip}
 	}
 }
+
+
+# -----------------------------------------------------------------------------
+
+www.cheerdesign.org, cheerdesign.org {
+        reverse_proxy 127.0.0.1:9898 {
+                header_up Host {host}
+                header_up X-Real-IP {client_ip}
+        }
+}
+
+cdn.cheerdesign.org {
+	reverse_proxy https://cheerdesign-cdn.nano.properties {
+		header_up Host cheerdesign-cdn.nano.properties
+		header_up X-Real-IP {client_ip}
+	}
+}
