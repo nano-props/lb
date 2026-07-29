@@ -40,7 +40,7 @@ frp.nano.properties {
 	}
 }
 
-g.nano.properties {
+ada.sel.tc.nano.properties {
 	@bypass path /ws/*
 	handle @bypass {
 		reverse_proxy 127.0.0.1:32100 {
