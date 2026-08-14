@@ -1,19 +1,50 @@
+ada.nano-props.asia {
+        @bypass path /ws/*
+        handle @bypass {
+                reverse_proxy 127.0.0.1:32100
+        }
+        handle {
+                reverse_proxy 127.0.0.1:32100
+        }
+}
+
+herta.nano-props.asia {
+        @bypass path /ws/*
+        handle @bypass {
+                reverse_proxy 127.0.0.1:32101
+        }
+        handle {
+                reverse_proxy 127.0.0.1:32101
+        }
+}
+
+dsh.nano.properties {
+	handle {
+		forward_auth 127.0.0.1:3500 {
+			uri /api/protected
+			header_up Host auth.nano.properties
+			@error status 401 403
+			handle_response @error {
+				redir https://auth.nano.properties/login?redirect={scheme}%3A%2F%2F{host}{%uri}
+			}
+		}
+
+		reverse_proxy 127.0.0.1:3080
+	}
+}
+
+# -----------------------------------------------------------------------------
+
 nano.properties, www.nano.properties {
 	redir https://s.nano.properties 302
 }
 
 auth.nano.properties {
-	reverse_proxy 127.0.0.1:3500 {
-		header_up Host {host}
-		header_up X-Real-IP {client_ip}
-	}
+	reverse_proxy 127.0.0.1:3500
 }
 
 i.nano.properties, ineffa.nano.properties {
-	reverse_proxy 127.0.0.1:3000 {
-		header_up Host {host}
-		header_up X-Real-IP {client_ip}
-	}
+	reverse_proxy 127.0.0.1:3000
 }
 
 s.nano.properties, static.nano.properties {
@@ -27,144 +58,48 @@ frp.nano.properties {
 		forward_auth 127.0.0.1:3500 {
 			uri /api/protected
 			header_up Host auth.nano.properties
-			header_up X-Original-URI {scheme}://{host}{uri}
 			@error status 401 403
 			handle_response @error {
 				redir https://auth.nano.properties/login?redirect={scheme}%3A%2F%2F{host}{%uri}
 			}
 		}
-		reverse_proxy 127.0.0.1:5500 {
-			header_up Host {host}
-			header_up X-Real-IP {client_ip}
-		}
+		reverse_proxy 127.0.0.1:5500
 	}
 }
-
-ada.sel.tc.nano.properties {
-	@bypass path /ws/*
-	handle @bypass {
-		reverse_proxy 127.0.0.1:32100 {
-			header_up Host {host}
-			header_up X-Real-IP {client_ip}
-		}
-	}
-	handle {
-		forward_auth 127.0.0.1:3500 {
-			uri /api/protected
-			header_up Host auth.nano.properties
-			header_up X-Original-URI {scheme}://{host}{uri}
-			@error status 401 403
-			handle_response @error {
-				redir https://auth.nano.properties/login?redirect={scheme}%3A%2F%2F{host}{%uri}
-			}
-		}
-
-		reverse_proxy 127.0.0.1:32100 {
-			header_up Host {host}
-			header_up X-Real-IP {client_ip}
-		}
-	}
-}
-
-
-macmini.nano.properties {
-        @bypass path /ws/*
-        handle @bypass {
-                reverse_proxy 127.0.0.1:32101 {
-                        header_up Host {host}
-                        header_up X-Real-IP {client_ip}
-                }
-        }
-        handle {
-                reverse_proxy 127.0.0.1:32101 {
-                        header_up Host {host}
-                        header_up X-Real-IP {client_ip}
-                }
-        }
-}
-
-
 
 code.nano.properties {
 	@bypass path /pty/* /site.webmanifest
 	handle @bypass {
-		reverse_proxy 127.0.0.1:4096 {
-			header_up Host {host}
-			header_up X-Real-IP {client_ip}
-		}
+		reverse_proxy 127.0.0.1:4096
 	}
 	handle {
 		forward_auth 127.0.0.1:3500 {
 			uri /api/protected
 			header_up Host auth.nano.properties
-			header_up X-Original-URI {scheme}://{host}{uri}
 			@error status 401 403
 			handle_response @error {
 				redir https://auth.nano.properties/login?redirect={scheme}%3A%2F%2F{host}{%uri}
 			}
 		}
 
-		reverse_proxy 127.0.0.1:4096 {
-			header_up Host {host}
-			header_up X-Real-IP {client_ip}
-		}
+		reverse_proxy 127.0.0.1:4096
 	}
 }
 
 # -----------------------------------------------------------------------------
 
 pai.mn, www.pai.mn {
-	reverse_proxy 127.0.0.1:3300 {
-		header_up Host {host}
-		header_up X-Real-IP {client_ip}
-	}
+	reverse_proxy 127.0.0.1:3300
 }
 
 ai.pai.mn {
-	reverse_proxy 127.0.0.1:5090 {
-		header_up Host {host}
-		header_up X-Real-IP {client_ip}
-	}
-}
-
-paidou.pai.mn {
-        reverse_proxy 127.0.0.1:8787 {
-                header_up Host {host}
-                header_up X-Real-IP {client_ip}
-        }
+	reverse_proxy 127.0.0.1:5090
 }
 
 # -----------------------------------------------------------------------------
 
 tokenai.dev, www.tokenai.dev {
-	reverse_proxy 127.0.0.1:6200 {
-		header_up Host {host}
-		header_up X-Real-IP {client_ip}
-	}
+	reverse_proxy 127.0.0.1:6200
 }
 
 # -----------------------------------------------------------------------------
-
-www.persuingtec.com {
-	reverse_proxy 127.0.0.1:20260 {
-		header_up Host {host}
-		header_up X-Real-IP {client_ip}
-	}
-}
-
-
-# -----------------------------------------------------------------------------
-
-www.cheerdesign.org, cheerdesign.org {
-        reverse_proxy 127.0.0.1:9898 {
-                header_up Host {host}
-                header_up X-Real-IP {client_ip}
-        }
-}
-
-cdn.cheerdesign.org {
-	reverse_proxy https://cheerdesign-cdn.nano.properties {
-		header_up Host cheerdesign-cdn.nano.properties
-		header_up X-Real-IP {client_ip}
-	}
-}
