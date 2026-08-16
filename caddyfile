@@ -1,21 +1,5 @@
 ada.nano-props.asia {
-        @bypass path /ws/*
-        handle @bypass {
-                reverse_proxy 127.0.0.1:32100
-        }
-        handle {
-                reverse_proxy 127.0.0.1:32100
-        }
-}
-
-herta.nano-props.asia {
-        @bypass path /ws/*
-        handle @bypass {
-                reverse_proxy 127.0.0.1:32101
-        }
-        handle {
-                reverse_proxy 127.0.0.1:32101
-        }
+        reverse_proxy 127.0.0.1:32100
 }
 
 dsh.nano.properties {
@@ -106,4 +90,3 @@ tokenai.dev, www.tokenai.dev {
 	reverse_proxy 127.0.0.1:6200
 }
 
-# -----------------------------------------------------------------------------
